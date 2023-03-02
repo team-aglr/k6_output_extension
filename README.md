@@ -20,6 +20,11 @@
   the call to flushMetrics
   - currently using PeriodicFlusher to conduct a repetitive task at intervals
   - I think we will want to use go's Ticker to do this instead
+- [] refactor how connection is created 
+   - wanted to add a Conn type to the Logger struct that keeps track of the connections to servers, but that type
+     was undefined, so the simple fix was to inline eastablish a new connection every time flushMetrics is called,
+     which is unideal
+   - server is a SPOF - how are we building in resiliency
 - [] track the start time of each rounded/flush-aligned interval (ie 1 min 20 secs, 1 min 30 secs, 1 min 40 secs)
 - [] send start time along with count data to relevant server
   - not sure if there will be any issues in maintaing integrity of a time stamp when convert it to bytes along with
@@ -52,6 +57,6 @@
 
 - same high-level todos as td_server
   - processes that will look different b/c not working with tdigests:
-  - deserialization
-  - aggregation
-  - map storage
+   - deserialization
+   - aggregation
+   - map storage
