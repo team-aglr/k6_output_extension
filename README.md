@@ -1,13 +1,13 @@
 # k6 custom output extensions
 
-# create a build:
+# servers:
 
-1. you can't have both >1 output extensions in the same folder while creating a build (so right now would have to move either tdigest_output_v2.go or tdigest_output_v3.go elsewhere)
-2. run the command:
+1. td_server: for receiving tdigest bytes (associated with trend metrics)
+2. non_td_server: for receiving non-tdigest bytes for non-trend metrics
+
+# xk6-output-tdigest directory:
+
+1. Create a build by running the command:
    xk6 build --with xk6-output-tdigest=.
-
-   note: you might need to replace xk6-output-tdigest with your specific local folder name if it's different
-
-# Run the test file after creating a build with the command:
-
-./k6 run test.js --out logger --quiet --no-summary --iterations 5
+2. Run the k6 test file:
+   ./k6 run test.js --out logger --quiet --no-summary --iterations 5
