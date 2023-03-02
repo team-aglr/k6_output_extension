@@ -6,6 +6,8 @@
 2. run the command:
    xk6 build --with xk6-output-tdigest=.
 
+   note: you might need to replace xk6-output-tdigest with your specific local folder name if it's different
+
 # Run the test file after creating a build with the command:
 
 ./k6 run test.js --out logger --quiet --no-summary --iterations 5
