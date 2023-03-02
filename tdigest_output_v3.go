@@ -24,7 +24,14 @@ type Logger struct {
 
 // New returns a new instance of Logger
 func New(params output.Params) (output.Output, error) {
-	return &Logger{}, nil
+	return NewLogger(params), nil
+}
+
+func NewLogger(params output.Params) *Logger {
+	var l Logger
+	l.out = params.StdOut
+	l.counts = make(map[string]int64)
+	return &l
 }
 
 // Description returns a short human-readable description of the output
@@ -63,11 +70,11 @@ func (l *Logger) AddMetricSamples(samples []metrics.SampleContainer) {
 		for _, entry := range all {
 			metricName := entry.Metric.Name
 			if entry.Metric.Type == metrics.Counter {
-				value, exists := l.counts[metricName]
+				_, exists := l.counts[metricName]
 				if !exists {
-					l.counts[metricName] = value
+					l.counts[metricName] = int64(entry.Value)
 				} else {
-					l.counts[metricName] += value
+					l.counts[metricName] += int64(entry.Value)
 				}
 			}
 		}
