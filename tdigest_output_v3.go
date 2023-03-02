@@ -18,7 +18,7 @@ func init() {
 type Logger struct {
 	out             io.Writer
 	periodicFlusher *output.PeriodicFlusher
-	counts          map[string]int64 // this is illegal, but the xk6 build won't error out/just get panic error when try to run a test with this output extension
+	counts          map[string]int64
 	// client *statsd.Client
 }
 
